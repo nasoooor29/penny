@@ -5,6 +5,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-page',
   imports: [CommonModule],
   templateUrl: './page.html',
-  styleUrl: './page.css',
+  styleUrl: './page.scss',
 })
 export class Page {}

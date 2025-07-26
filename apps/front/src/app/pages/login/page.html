@@ -1,1 +1,45 @@
-<p>page works!</p>
+<p-toast></p-toast>
+<div class="login-wrapper">
+  <p-card header="Welcome Back">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+      <div class="p-field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          pInputText
+          [(ngModel)]="username"
+          required
+        />
+        <app-validation-message
+          [errors]="validationErrors['username']"
+        ></app-validation-message>
+      </div>
+
+      <div class="p-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          pPassword
+          [(ngModel)]="password"
+          required
+        />
+        <app-validation-message
+          [errors]="validationErrors['password']"
+        ></app-validation-message>
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        class="login-btn"
+        [disabled]="loginForm.invalid || loading"
+      >
+        Login
+      </button>
+    </form>
+  </p-card>
+</div>

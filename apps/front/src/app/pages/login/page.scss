@@ -1,0 +1,33 @@
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+}
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 2rem;
+  min-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.p-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-field label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.login-btn {
+  width: 100%;
+  color: white;
+}
