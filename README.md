@@ -22,25 +22,25 @@ This repository contains a monorepo (Nx.dev) with two projects:
 ## Setup
 
 1. Clone the repository:
-   ```bash
-   git clone <repo-url>
-   cd <repo-folder>
+```bash
+git clone <repo-url>
+cd <repo-folder>
    ```
 
 2. Install dependencies:
-   ```bash
-   npm install
-   ```
+```bash
+npm install
+```
 
 3. Run the backend API:
-   ```bash
+```bash
 npx nx serve api --skip-nx-cache
-   ```
+```
 
 4. Run the frontend:
-   ```bash
+```bash
 npx nx serve front --skip-nx-cache
-   ```
+```
 
 ## Why the project is bad
 - started working on it late as you can see from the commits
