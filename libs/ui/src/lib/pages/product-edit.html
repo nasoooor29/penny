@@ -1,1 +1,65 @@
-<p>product-edit works!</p>
+<p>product-create works!</p>
+<p>Welcome to the product-create page!</p>
+<p-card header="Create Product" styleClass="mb-3">
+  <form #productCreate="ngForm" (ngSubmit)="onSubmit()">
+    <div class="p-fluid">
+      <div class="p-field">
+        <label for="name">Product Name:</label>
+        <input
+          id="name"
+          pInputText
+          [(ngModel)]="name"
+          type="text"
+          name="name"
+          required
+        />
+
+        <app-validation-message
+          [errors]="validationErrors['name']"
+        ></app-validation-message>
+      </div>
+      <div class="p-field">
+        <label for="description">Description:</label>
+        <textarea
+          id="description"
+          pInputTextarea
+          [(ngModel)]="description"
+          name="description"
+        ></textarea>
+
+        <app-validation-message
+          [errors]="validationErrors['description']"
+        ></app-validation-message>
+      </div>
+      <div class="p-field">
+        <label for="price">Price:</label>
+        <input
+          id="price"
+          type="number"
+          pInputText
+          [(ngModel)]="price"
+          name="price"
+          required
+        />
+
+        <app-validation-message
+          [errors]="validationErrors['price']"
+        ></app-validation-message>
+      </div>
+      <button
+        pButton
+        type="submit"
+        [disabled]="productCreate.invalid"
+        class="p-mt-2"
+      >
+        Create Product
+      </button>
+    </div>
+  </form>
+  <div *ngIf="successMessage" class="success-message p-mt-2">
+    <p-message severity="success" text="{{ successMessage }}"></p-message>
+  </div>
+  <div *ngIf="errorMessage" class="error-message p-mt-2">
+    <p-message severity="error" text="{{ errorMessage }}"></p-message>
+  </div>
+</p-card>

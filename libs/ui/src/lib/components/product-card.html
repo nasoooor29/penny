@@ -1,12 +1,44 @@
-<p>product-card works!</p>
-<p-card>
+<p-card styleClass="product-card">
   <ng-template pTemplate="header">
-    <div class="flex justify-content-between align-items-center">
-      <span class="text-xl font-bold">{{ product.name }}</span>
-      <span class="text-lg font-semibold">{{ product.price | currency }}</span>
+    <div class="header">
+      <span class="name">{{ product.name }}</span>
+      <span class="price">{{ product.price | currency }}</span>
     </div>
   </ng-template>
+
   <ng-template pTemplate="body">
-    <p>{{ product.description }}</p>
+    <div class="body">
+      <p class="description">{{ product.description }}</p>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <div class="footer">
+      <button
+        pButton
+        type="button"
+        label="View"
+        icon="pi pi-eye"
+        class="p-button-text"
+        routerLink="/products/{{ product._id }}"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Delete"
+        icon="pi pi-shopping-cart"
+        severity="danger"
+        class="p-button-success"
+        (click)="onDelete(product._id)"
+      ></button>
+      <button
+        pButton
+        type="button"
+        label="Edit"
+        icon="pi pi-pencil"
+        class="p-button-secondary"
+        routerLink="/products/{{ product._id }}/edit"
+      ></button>
+    </div>
   </ng-template>
 </p-card>

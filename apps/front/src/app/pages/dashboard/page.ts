@@ -17,25 +17,27 @@ import { MessageService } from 'primeng/api';
 })
 export class Page {
   products: Product[] = [];
+
   constructor(
-    auth: AuthService,
-    product: ProductService,
-    messageService: MessageService
+    private auth: AuthService,
+    private product: ProductService,
+    private messageService: MessageService
   ) {
-    console.log('AuthService:', auth);
-    console.log('ProductService:', product);
-    auth.me().subscribe((u) => {
-      messageService.add({
+    this.auth.me().subscribe((u) => {
+      this.messageService.add({
         severity: 'info',
         summary: 'Welcome',
         detail: `Hello, ${u.username}! You are logged in.`,
       });
     });
 
-    product.getAll().pipe(
-      tap((data) => {
-        this.products = data;
-      })
-    );
+    this.fetchProducts();
+  }
+
+  fetchProducts() {
+    this.product
+      .getAll()
+      .pipe(tap((data) => (this.products = data)))
+      .subscribe();
   }
 }

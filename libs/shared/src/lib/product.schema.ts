@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const ProductSchema = z.object({
-  id: z.string().uuid(),
+  _id: z.string(),
   name: z.string().min(1, 'Name is required'),
   description: z.string().optional(),
   price: z.number().positive('Price must be a positive number'),
@@ -10,7 +10,7 @@ export const ProductSchema = z.object({
 });
 // create product DTO
 export const CreateProductDtoSchema = ProductSchema.omit({
-  id: true,
+  _id: true,
   createdAt: true,
   updatedAt: true,
 });

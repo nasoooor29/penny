@@ -36,19 +36,21 @@ export class ProductController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+    return this.productService.findOne(id);
   }
 
   @Patch(':id')
-  @UsePipes(new ZodValidationPipe(UpdateProductDtoSchema))
   @UseGuards(SessionGuard)
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(+id, updateProductDto);
+  update(
+    @Body(new ZodValidationPipe(UpdateProductDtoSchema))
+    updateProductDto: UpdateProductDto,
+    @Param('id') id: string
+  ) {
+    return this.productService.update(id, updateProductDto);
   }
-
   @Delete(':id')
   @UseGuards(SessionGuard)
   remove(@Param('id') id: string) {
-    return this.productService.remove(+id);
+    return this.productService.remove(id);
   }
 }

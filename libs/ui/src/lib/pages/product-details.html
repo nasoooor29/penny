@@ -1,1 +1,14 @@
-<p>product-details works!</p>
+<p-card>
+  <span class="product-title">{{product?.name}}</span>
+  <div class="product-description">{{product?.description}}</div>
+  <div class="product-price">
+    {{ product?.price | currency: 'USD': 'symbol':'1.2-2' }}
+  </div>
+  <button
+    pButton
+    type="button"
+    label="Edit Now"
+    class="buy-btn"
+    routerLink="/products/{{ product?._id }}/edit"
+  ></button>
+</p-card>
