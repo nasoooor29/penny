@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@penny/services": ["libs/services/src/index.ts"],
       "@penny/shared-validation": ["libs/shared/src/index.ts"],
       "@penny/ui": ["libs/ui/src/index.ts"]
     }

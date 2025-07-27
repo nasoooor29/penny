@@ -2,7 +2,7 @@ import { Environment, EnvironmentSchema } from './env.schema';
 
 export const env: Environment = EnvironmentSchema.parse({
   apiBaseUrl: 'http://localhost:3000',
-  appName: 'MyApp',
+  appName: 'Penny',
   NODE_ENV: 'development',
   PORT: 4200,
   DB_URI:

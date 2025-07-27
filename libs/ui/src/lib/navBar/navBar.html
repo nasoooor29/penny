@@ -1,0 +1,41 @@
+<!-- src/app/navbar/navbar.component.html -->
+<p-menubar>
+  <ng-template pTemplate="start">
+    <a routerLink="/" class="text-xl font-bold no-underline text-white logo">
+      {{ appName }}
+    </a>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <ng-container *ngIf="auth.currentUser(); else guestButtons">
+      <button
+        pButton
+        label="Logout"
+        severity="danger"
+        size="small"
+        icon="pi pi-sign-out"
+        (click)="onLogout()"
+      ></button>
+    </ng-container>
+
+    <ng-template #guestButtons>
+      <div class="btn-grp">
+        <button
+          pButton
+          label="Login"
+          icon="pi pi-sign-in"
+          size="small"
+          routerLink="/login"
+        ></button>
+        <button
+          pButton
+          routerLink="register"
+          label="Register"
+          icon="pi pi-user-plus"
+          size="small"
+          severity="secondary"
+        ></button>
+      </div>
+    </ng-template>
+  </ng-template>
+</p-menubar>

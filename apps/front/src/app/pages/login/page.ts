@@ -7,11 +7,11 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ValidationMessage } from '@penny/ui';
-import { env, loginSchema, User } from '@penny/shared-validation';
+import { loginSchema } from '@penny/shared-validation';
 
 import { MessageService } from 'primeng/api';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '@penny/services';
 
 @Inject(MessageService)
 @Component({
@@ -37,7 +37,7 @@ export class Page {
   validationErrors: Record<string, ZodIssue[]> = {};
   constructor(
     private messageService: MessageService,
-    private httpClient: HttpClient,
+    private authService: AuthService,
     private router: Router
   ) {}
   validate() {
@@ -74,6 +74,15 @@ export class Page {
       return;
     }
     this.loading = true;
+    this.authService.login(this.username, this.password).subscribe({
+      next: () => {
+        this.loading = false;
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.loading = false;
+      },
+    });
 
     // console.log('Logging in with:', this.username, this.password);
     // this.messageService.add({
@@ -81,33 +90,5 @@ export class Page {
     //   summary: 'Login Successful',
     //   detail: `Welcome, ${this.username}!`,
     // });
-
-    this.httpClient
-      .post<User>(`${env.apiBaseUrl}/api/auth/login`, {
-        username: this.username,
-        password: this.password,
-      })
-      .subscribe({
-        next: (value) => {
-          console.log('Login successful:', value);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Login Successful',
-            detail: `Welcome, ${value.username}!`,
-          });
-          this.loading = false;
-          this.router.navigate(['/']);
-          console.log('User data:', value);
-        },
-        error: (err) => {
-          console.error('Login failed:', err);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Login Failed',
-            detail: err.error?.message || 'Unknown error',
-          });
-          this.loading = false;
-        },
-      });
   }
 }

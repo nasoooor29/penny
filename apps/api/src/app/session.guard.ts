@@ -10,6 +10,7 @@ import { Request } from 'express';
 export class SessionGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest<Request>();
+    console.log(req.session.id);
     if (!req.session.user) {
       throw new UnauthorizedException('User not logged in');
     }
