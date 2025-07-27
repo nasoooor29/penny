@@ -1,0 +1,73 @@
+<div class="register-wrapper">
+  <p-card header="Welcome To Penny">
+    <form (ngSubmit)="onSubmit()" #registerForm="ngForm" class="register-form">
+      <div class="p-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          pInputText
+          [(ngModel)]="email"
+          required
+        />
+        <app-validation-message
+          [errors]="validationErrors['email']"
+        ></app-validation-message>
+      </div>
+      <div class="p-field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          pInputText
+          [(ngModel)]="username"
+          required
+        />
+        <app-validation-message
+          [errors]="validationErrors['username']"
+        ></app-validation-message>
+      </div>
+
+      <div class="p-field">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          pPassword
+          [(ngModel)]="password"
+          required
+        />
+        <app-validation-message
+          [errors]="validationErrors['password']"
+        ></app-validation-message>
+      </div>
+
+      <div class="p-field">
+        <label for="confirm-password">Confirm Password</label>
+        <input
+          id="confirm-password"
+          name="confirm-password"
+          type="password"
+          pPassword
+          [(ngModel)]="confirmPassword"
+          required
+        />
+        <app-validation-message
+          [errors]="validationErrors['confirmPassword']"
+        ></app-validation-message>
+      </div>
+
+      <button
+        pButton
+        type="submit"
+        class="register-btn"
+        [disabled]="registerForm.invalid || loading"
+      >
+        Register
+      </button>
+    </form>
+  </p-card>
+</div>

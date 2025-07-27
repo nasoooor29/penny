@@ -51,6 +51,7 @@ export class UsersController {
     try {
       const user = await this.userService.create(body);
       req.session.user = user;
+      return user;
     } catch (error) {
       throw new InternalServerErrorException('Error creating user');
     }

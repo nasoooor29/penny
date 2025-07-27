@@ -5,7 +5,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 // BUG: I give up on this one, will fix later
-// import { ZodTypeAny } from 'zod'; // ✅ Correct type
+// import { ZodSchema } from 'zod'; // ✅ Correct type
 
 export class ZodValidationPipe implements PipeTransform {
   // BUG: I give up on this one, will fix later
@@ -17,6 +17,8 @@ export class ZodValidationPipe implements PipeTransform {
     if (result.success) {
       return result.data;
     } else {
+      // choose the first error for simplicity
+
       throw new BadRequestException({
         message: 'Validation failed',
         errors: result.error.errors,

@@ -1,38 +1,38 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { env, registrationSchema, User } from '@penny/shared-validation';
 import { ZodIssue } from 'zod';
+import { Card, CardModule } from 'primeng/card';
+import { ValidationMessage } from '@penny/ui';
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { ValidationMessage } from '@penny/ui';
-import { env, loginSchema, User } from '@penny/shared-validation';
-
-import { MessageService } from 'primeng/api';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Inject(MessageService)
 @Component({
-  selector: 'app-login',
-  standalone: true,
+  selector: 'app-page',
   imports: [
     CommonModule,
+    Card,
+    ValidationMessage,
     FormsModule,
     InputTextModule,
     PasswordModule,
     ButtonModule,
     CardModule,
-    ValidationMessage,
   ],
   templateUrl: './page.html',
-  styleUrls: ['./page.scss'],
-  providers: [],
+  styleUrl: './page.scss',
 })
 export class Page {
+  email = '';
   username = '';
   password = '';
+  confirmPassword = '';
   loading = false;
   validationErrors: Record<string, ZodIssue[]> = {};
   constructor(
@@ -41,9 +41,11 @@ export class Page {
     private router: Router
   ) {}
   validate() {
-    const res = loginSchema.safeParse({
+    const res = registrationSchema.safeParse({
+      email: this.email,
       username: this.username,
       password: this.password,
+      confirmPassword: this.confirmPassword,
     });
 
     if (!res.success) {
@@ -68,7 +70,7 @@ export class Page {
       console.error('Validation failed:', this.validationErrors);
       this.messageService.add({
         severity: 'error',
-        summary: 'Validation Error',
+        summary: 'Validation Error front',
         detail: 'Please fix the errors before submitting.',
       });
       return;
@@ -83,9 +85,11 @@ export class Page {
     // });
 
     this.httpClient
-      .post<User>(`${env.apiBaseUrl}/api/auth/login`, {
+      .post<User>(`${env.apiBaseUrl}/api/auth/register`, {
+        email: this.email,
         username: this.username,
         password: this.password,
+        confirmPassword: this.confirmPassword,
       })
       .subscribe({
         next: (value) => {

@@ -6,6 +6,8 @@ import {
   UnauthorizedException,
   UseGuards,
   Get,
+  BadRequestException,
+  ConflictException,
 } from '@nestjs/common';
 import { RegistrationType, User } from '@penny/shared-validation';
 import { Request } from 'express';
@@ -20,6 +22,21 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: RegistrationType) {
+    // check if username already exists
+    const existingUser = await this.userModel.findOne({
+      username: createUserDto.username,
+    });
+    if (existingUser) {
+      throw new ConflictException('Username already exists');
+    }
+    // check if email already exists
+    const existingEmail = await this.userModel.findOne({
+      email: createUserDto.email,
+    });
+    if (existingEmail) {
+      throw new ConflictException('Email already exists');
+    }
+
     const createdUser = new this.userModel(createUserDto);
     const newPass = await this.authService.hashPassword(createUserDto.password);
     createdUser.password = newPass;
