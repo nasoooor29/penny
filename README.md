@@ -2,23 +2,22 @@
 
 This repository contains a monorepo (Nx.dev) with two projects:
 - `api`: NestJS backend API
-- `front`: Angular frontend with NGRX state management
+- `front`: Angular frontend
 
 ## Features
 
 - Signup, Sign In, and Sign Out
 - Authenticated sessions persist for 8 hours
 - Web form to send data via POST request
-- Data listing (e.g., users/products) for logged-in users
+- Data listing (e.g., products)
+- edit and delete for the logged in users
 
 ## Technology Stack
 
 - Nx.dev monorepo
 - Angular (UI)
-- NGRX (state management)
 - NestJS (API)
 - MongoDB (Atlas, optional)
-- Google Cloud Platform (deployment, optional)
 
 ## Setup
 
@@ -33,26 +32,18 @@ This repository contains a monorepo (Nx.dev) with two projects:
    npm install
    ```
 
-3. Configure environment variables for both `api` and `front` (see respective `.env.example` files).
-
-4. Run the backend API:
+3. Run the backend API:
    ```bash
-   nx serve api
+npx nx serve api --skip-nx-cache
    ```
 
-5. Run the frontend:
+4. Run the frontend:
    ```bash
-   nx serve front
+npx nx serve front --skip-nx-cache
    ```
 
-## Optional Enhancements (Bounty Points)
+## Why the project is bad
+- started working on it late as you can see from the commits
+- family issues
+- learned everything in one day and made the project on the next one
 
-- Forgot Password feature
-- Online MongoDB (Atlas)
-- GCP deployment
-
-## Submission
-
-- Push all code to GitHub.
-- Submit a recording demonstrating app functionality and code walkthrough.
-- Deadline: Monday, July 28, 2025
