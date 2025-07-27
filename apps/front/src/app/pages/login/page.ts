@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ZodIssue, ZodSchema } from 'zod';
 import { FormsModule } from '@angular/forms';
@@ -7,11 +7,12 @@ import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { ValidationMessage } from '@penny/ui';
-import { loginSchema } from '@penny/shared-validation';
+import { env, loginSchema, User } from '@penny/shared-validation';
 
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { HttpClient } from '@angular/common/http';
 
+@Inject(MessageService)
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -23,18 +24,20 @@ import { MessageService } from 'primeng/api';
     ButtonModule,
     CardModule,
     ValidationMessage,
-    ToastModule, // Import ToastModule for notifications
   ],
   templateUrl: './page.html',
   styleUrls: ['./page.scss'],
-  providers: [MessageService], // provide MessageService here
+  providers: [],
 })
 export class Page {
   username = '';
   password = '';
   loading = false;
   validationErrors: Record<string, ZodIssue[]> = {};
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private httpClient: HttpClient // Assuming you have HttpClient injected for API calls
+  ) {}
   validate() {
     const res = loginSchema.safeParse({
       username: this.username,
@@ -68,14 +71,37 @@ export class Page {
       });
       return;
     }
+    // this.loading = true;
 
-    console.log('Logging in with:', this.username, this.password);
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Login Successful',
-      detail: `Welcome, ${this.username}!`,
-    });
-    this.loading = true;
-    // TODO: Connect to backend auth API
+    // console.log('Logging in with:', this.username, this.password);
+    // this.messageService.add({
+    //   severity: 'success',
+    //   summary: 'Login Successful',
+    //   detail: `Welcome, ${this.username}!`,
+    // });
+
+    this.httpClient
+      .post<User>(`${env.apiBaseUrl}/api/auth/login`, {
+        username: this.username,
+        password: this.password,
+      })
+      .subscribe({
+        next: (value) => {
+          console.log('Login successful:', value);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Login Successful',
+            detail: `Welcome, ${value.username}!`,
+          });
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Login Failed',
+            detail: err.error?.message || 'Unknown error',
+          });
+        },
+      });
   }
 }
