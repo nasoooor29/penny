@@ -19,10 +19,6 @@ export const appRoutes: Route[] = [
     loadComponent: () => import('@penny/ui').then((m) => m.ProductCreate),
   },
   {
-    path: 'products',
-    loadComponent: () => import('@penny/ui').then((m) => m.ProductList),
-  },
-  {
     path: 'products/:id',
     loadComponent: () => import('@penny/ui').then((m) => m.ProductDetails),
   },
