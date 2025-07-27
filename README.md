@@ -4,6 +4,16 @@ This repository contains a monorepo (Nx.dev) with two projects:
 - `api`: NestJS backend API
 - `front`: Angular frontend
 
+## Why my project is bad
+- started working on it late as you can see from the commits
+- learned everything in one day and made the project on the next one
+- family issues
+
+# Video
+[Download and watch recording.mp4](./recording.mp4)
+
+
+
 ## Features
 
 - Signup, Sign In, and Sign Out
@@ -41,9 +51,4 @@ npx nx serve api --skip-nx-cache
 ```bash
 npx nx serve front --skip-nx-cache
 ```
-
-## Why the project is bad
-- started working on it late as you can see from the commits
-- family issues
-- learned everything in one day and made the project on the next one
 
