@@ -23,8 +23,8 @@ This repository contains a monorepo (Nx.dev) with two projects:
 
 1. Clone the repository:
 ```bash
-git clone <repo-url>
-cd <repo-folder>
+git clone https://github.com/nasoooor29/penny
+cd penny
    ```
 
 2. Install dependencies:
