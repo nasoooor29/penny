@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductService } from '@penny/services';
+import { AuthService, ProductService } from '@penny/services';
 import { MessageService } from 'primeng/api';
 import { ZodIssue } from 'zod';
 import { Product, UpdateProductDtoSchema } from '@penny/shared-validation';
@@ -13,6 +13,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { InputTextModule } from 'primeng/inputtext';
 import { Message } from 'primeng/message';
 
+@Inject(AuthService)
 @Component({
   selector: 'lib-product-edit',
   imports: [
@@ -43,11 +44,32 @@ export class ProductEdit {
     private route: ActivatedRoute,
     private productService: ProductService,
     private messageService: MessageService,
+    private auth: AuthService,
     private router: Router
   ) {
     this.id = this.route.snapshot.paramMap.get('id') || '';
   }
   ngOnInit() {
+    if (!this.id) {
+      console.error('Product ID is not provided in the route.');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Product ID is missing.',
+      });
+      this.router.navigate(['/products']);
+      return;
+    }
+    if (!this.auth.currentUser()) {
+      console.error('User is not authenticated.');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Authentication Error',
+        detail: 'You must be logged in to edit a product.',
+      });
+      this.router.navigate(['/login']);
+      return;
+    }
     this.productService.getById(this.id).subscribe({
       next: (data) => {
         this.product = data;

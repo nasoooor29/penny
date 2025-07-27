@@ -103,11 +103,11 @@ export class AuthService {
           if (error.status === 401) {
             localStorage.removeItem('user');
           }
-          this.toast.add({
-            severity: 'error',
-            summary: 'Fetch user failed',
-            detail: error.error?.message || 'Please try again',
-          });
+          // this.toast.add({
+          //   severity: 'error',
+          //   summary: 'Fetch user failed',
+          //   detail: error.error?.message || 'Please try again',
+          // });
           return throwError(() => error);
         })
       );
