@@ -20,7 +20,7 @@ async function bootstrap() {
       resave: false,
       saveUninitialized: false,
       cookie: {
-        // 8 hours
+        // NOTE: 8 hours
         maxAge: 8 * 60 * 60 * 1000, // 8 hours in milliseconds
         secure: false, // Set to true if using HTTPS
       },

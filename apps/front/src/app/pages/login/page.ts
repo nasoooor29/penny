@@ -11,6 +11,7 @@ import { env, loginSchema, User } from '@penny/shared-validation';
 
 import { MessageService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Inject(MessageService)
 @Component({
@@ -36,7 +37,8 @@ export class Page {
   validationErrors: Record<string, ZodIssue[]> = {};
   constructor(
     private messageService: MessageService,
-    private httpClient: HttpClient // Assuming you have HttpClient injected for API calls
+    private httpClient: HttpClient,
+    private router: Router
   ) {}
   validate() {
     const res = loginSchema.safeParse({
@@ -71,7 +73,7 @@ export class Page {
       });
       return;
     }
-    // this.loading = true;
+    this.loading = true;
 
     // console.log('Logging in with:', this.username, this.password);
     // this.messageService.add({
@@ -93,6 +95,9 @@ export class Page {
             summary: 'Login Successful',
             detail: `Welcome, ${value.username}!`,
           });
+          this.loading = false;
+          this.router.navigate(['/']);
+          console.log('User data:', value);
         },
         error: (err) => {
           console.error('Login failed:', err);
@@ -101,6 +106,7 @@ export class Page {
             summary: 'Login Failed',
             detail: err.error?.message || 'Unknown error',
           });
+          this.loading = false;
         },
       });
   }
