@@ -8,14 +8,24 @@
 
   <ng-template pTemplate="end">
     <ng-container *ngIf="auth.currentUser(); else guestButtons">
+      <!-- add product btn-->
       <button
         pButton
-        label="Logout"
+        label="Add Product"
+        icon="pi pi-plus"
+        size="small"
+        routerLink="/products/create"
+      ></button>
+
+      <button
+        pButton
         severity="danger"
         size="small"
         icon="pi pi-sign-out"
         (click)="onLogout()"
-      ></button>
+      >
+        Logout
+      </button>
     </ng-container>
 
     <ng-template #guestButtons>

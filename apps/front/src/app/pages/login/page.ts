@@ -34,18 +34,18 @@ export class Page {
   username = '';
   password = '';
   loading = false;
-  validationErrors: Record<string, ZodIssue[]> = {};
   constructor(
     private messageService: MessageService,
     private authService: AuthService,
     private router: Router
   ) {}
+
+  validationErrors: Record<string, ZodIssue[]> = {};
   validate() {
     const res = loginSchema.safeParse({
       username: this.username,
       password: this.password,
     });
-
     if (!res.success) {
       this.validationErrors = {};
       for (const issue of res.error.issues) {

@@ -1,0 +1,12 @@
+<p>product-card works!</p>
+<p-card>
+  <ng-template pTemplate="header">
+    <div class="flex justify-content-between align-items-center">
+      <span class="text-xl font-bold">{{ product.name }}</span>
+      <span class="text-lg font-semibold">{{ product.price | currency }}</span>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="body">
+    <p>{{ product.description }}</p>
+  </ng-template>
+</p-card>
