@@ -100,6 +100,9 @@ export class AuthService {
           localStorage.setItem('user', JSON.stringify(user));
         }),
         catchError((error) => {
+          if (error.status === 401) {
+            localStorage.removeItem('user');
+          }
           this.toast.add({
             severity: 'error',
             summary: 'Fetch user failed',
