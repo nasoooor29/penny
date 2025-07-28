@@ -10,7 +10,7 @@ This repository contains a monorepo (Nx.dev) with two projects:
 - family issues
 
 # Video
-[Download and watch recording.mp4](./recording.mp4)
+[Download and watch recording.mp4](https://github.com/nasoooor29/penny/raw/refs/heads/main/recording.mp4)
 
 
 
